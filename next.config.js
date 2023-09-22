@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-    exportPathMap: async function (defaultPathMap) {
-      // Define custom path mappings for static export
-      const customPathMap = {
-        // Add your custom path mappings here
-      };
-  
-      // Merge the default and custom path mappings
-      return Object.assign({}, defaultPathMap, customPathMap);
-    },
-  };
+  exportPathMap: async function (defaultPathMap) {
+    const customPathMap = {
+      // Map API routes to custom paths
+      '/api/notepages': { page: '/api/notepages/' },
+      
+      // Add more custom path mappings here
+      
+      // Default path mappings based on your project's file structure
+      ...defaultPathMap,
+    };
+
+    return customPathMap;
+  },
+};
