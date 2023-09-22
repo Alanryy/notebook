@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
-  exportPathMap: async function (defaultPathMap) {
+  async generateStaticParams() {
+    // Map API routes to custom paths
     const customPathMap = {
-      // Map API routes to custom paths
       '/api/notepages/get': { page: '/api/notepages/get' },
       '/api/notepages/put': { page: '/api/notepages/put' },
       '/api/notepages/delete': { page: '/api/notepages/delete' },
