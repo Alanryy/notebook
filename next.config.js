@@ -1,5 +1,11 @@
+
 /** @type {import('next').NextConfig} */
 
-module.exports = {
-  distDir : 'build',
-};
+const nextConfig = {
+  output: 'export',
+    trailingSlash: true,
+    kipTrailingSlashRedirect: true,
+    distDir: 'dist',
+}
+ 
+module.exports = nextConfig
