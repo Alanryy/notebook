@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
+  output: 'export',
   async generateStaticParams() {
     // Map API routes to custom paths
     const customPathMap = {
