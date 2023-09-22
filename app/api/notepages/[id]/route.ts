@@ -40,7 +40,7 @@ const updateDataInDatabase = async (id: number, data: any): Promise<void> => {
   connection.release();
 };
 
-const deleteDataFromDatabase = async (id: number): Promise<void> => {
+const deleteDataFromDatabase = async (id : any): Promise<void> => {
   const connection: PoolConnection = await pool.getConnection();
   await connection.execute('DELETE FROM pages WHERE id = ?', [id]);
   console.log(id);
@@ -91,12 +91,12 @@ export const PUT = async (req: Request, res: Response) => {
 };
 
 export const DELETE = async (req: Request, res: Response) => {
-  const  {id}  = await req.json();
+  const  id  =  req.url.split("notepages/")[1];
   try {
     const del =  await deleteDataFromDatabase(id);
     return NextResponse.json({ message:"data DELETED", del}, { status: 200});
   } catch (err) {
-    return NextResponse.json({ message: "Error", err},{status: 500,});
+    return NextResponse.json({ message: "Error", id},{status: 500,});
   }
 
 };
