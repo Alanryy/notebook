@@ -1,52 +1,53 @@
 import { NextResponse } from "next/server";
-import mysql, { PoolConnection } from 'mysql2/promise';
+import mongoose from 'mongoose';
 
 
 // Create a MySQL connection pool with your configuration
-const pool = mysql.createPool({
-  host: 'localhost',
-  database: 'notesdata',
-  user: 'root',
-  password: '',
-  connectionLimit: 10,
+
+// Connect to MongoDB
+const connectDB = async () => {
+  if (mongoose.connections[0].readyState) return;
+  // Using new database connection
+  await mongoose.connect('mongodb+srv://alanry:CR6SNRZiEXvs2syg@pages.uhhsclp.mongodb.net/', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  } as any);
+};
+
+// Define your schema
+const pageSchema = new mongoose.Schema({
+  title: String,
+  categorie: String,
+  content: String,
 });
 
+// Define your model
+const Page = mongoose.models['page.coll'] || mongoose.model('page.coll', pageSchema);
 
+
+// Fetch data from database
 const fetchDataFromDatabase = async (): Promise<any[]> => {
-  const connection: PoolConnection = await pool.getConnection();
-  const [rows] = await connection.execute('SELECT * FROM pages');
-  connection.release();
-  return rows as any[];
+  await connectDB();
+  return Page.find({});
 };
 
+// Insert data into database
 const insertDataIntoDatabase = async (data: any): Promise<void> => {
-  const connection: PoolConnection = await pool.getConnection();
-  await connection.execute('INSERT INTO pages (title, categorie,content) VALUES (?, ?,?)', [
-    data.title,
-    data.categorie,
-    data.content,
-  ]);
-  connection.release();
+  await connectDB();
+  await Page.create(data);
 };
 
-const updateDataInDatabase = async (id: number, data: any): Promise<void> => {
-  const connection: PoolConnection = await pool.getConnection();
-  await connection.execute('UPDATE pages SET title = ?, categorie = ?, content = ? WHERE id = ?', [
-    data.title,
-    data.categorie,
-    data.content,
-    id,
-  ]);
-  connection.release();
+// Update data in database
+const updateDataInDatabase = async (id: string, data: any): Promise<void> => {
+  await connectDB();
+  await Page.findByIdAndUpdate(id, data);
 };
 
-const deleteDataFromDatabase = async (id : any): Promise<void> => {
-  const connection: PoolConnection = await pool.getConnection();
-  await connection.execute('DELETE FROM pages WHERE id = ?', [id]);
-  console.log(id);
-  connection.release();
+// Delete data from database
+const deleteDataFromDatabase = async (id : string): Promise<void> => {
+  await connectDB();
+  await Page.findByIdAndDelete(id);
 };
-
 
 
 export const GET = async (req: Request, res: Response) => {
@@ -54,7 +55,7 @@ export const GET = async (req: Request, res: Response) => {
     const data = await fetchDataFromDatabase();
     return NextResponse.json({ message:"ok", data}, { status: 200});
   } catch (err) {
-    return NextResponse.json({ message: "Error", err },{status: 500,});
+    return NextResponse.json({ message: "Error", err},{status: 500,});
   }
 };
 
@@ -67,7 +68,7 @@ export const POST = async (req: Request, res: Response) => {
   }
   try {
     const post =  await insertDataIntoDatabase(data);
-    return NextResponse.json({ message:"data inserted", data}, { status: 200});
+    return NextResponse.json({ message:"data inserted", post}, { status: 200});
   } catch (err) {
     return NextResponse.json({ message: "Error", err},{status: 500,});
   }
