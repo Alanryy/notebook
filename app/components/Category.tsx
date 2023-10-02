@@ -11,7 +11,7 @@ interface Page {
 
 
 const Pagecat = async () => {
-    const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/895');
+    const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/456');
     const data = await res.json();
     const pages : Page[] = data.data;
     console.log(pages.map)
