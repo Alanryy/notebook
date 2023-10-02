@@ -7,29 +7,25 @@ export default function Home() {
       MY NOTEBOOK
     </div>
     <div className='flex flex-row' style={{ height: 'calc(100vh - 64px)' }}>
-      <div className='bg-pink-900 p-6 text-white text-xl text-center w-1/6 overflow-hidden'>
-        <div className='mb-4'>
-          <h2 className='text-2xl font-bold mb-2'>Categories</h2>
+      <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
-            <li>Category 1</li>
-            <li>Category 2</li>
-            <li>Category 3</li>
+            <li className='m-3'>Category 1</li> <hr/>
+            <li className='m-3'>Category 2</li> <hr/>
+            <li className='m-3'>Category 3</li> <hr/>
           </ul>
-        </div>
       </div>
-      <div className='bg-pink-800 p-6 text-white text-xl text-center w-1/6 overflow-hidden'>
-        <div className='mb-4'>
-          <h2 className='text-2xl font-bold mb-2'>Recent Titles</h2>
-          <ul>
-            <li>Title 1</li>
-            <li>Title 2</li>
-            <li>Title 3</li>
+      <div className='bg-pink-600 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
+          <ul >
+            <li className='m-3'>title  1</li> <hr/>
+            <li className='m-3'>title 2</li><hr/>
+            <li className='m-3'>title 3</li><hr/>
           </ul>
-        </div>
       </div>
+
+
       <div className='flex-grow overflow-auto '>
-        <textarea className='w-full h-full p-4 focus:transition-none focus:outline-none' style={{ 
-           fontFamily: 'Cursive', 
+        <textarea className='w-full h-full p-4 focus:transition-none focus:outline-none' style={{
+          fontFamily: 'Cursive', 
           fontSize: '20px', 
           lineHeight: '1.5', 
           backgroundColor: 'rgba(0, 0, 0, 0.95)', // Darker black background
