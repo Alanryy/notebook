@@ -1,5 +1,6 @@
 import React from 'react'
-import PageCard from './components/PageCard'
+import Category from './components/Category'
+import Title from './components/title'
 export default function Home() {
   return (
     <div className='h-screen flex flex-col'>
@@ -7,22 +8,8 @@ export default function Home() {
       MY NOTEBOOK
     </div>
     <div className='flex flex-row' style={{ height: 'calc(100vh - 64px)' }}>
-      <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
-          <ul>
-            <li className='m-3'>Category 1</li> <hr/>
-            <li className='m-3'>Category 2</li> <hr/>
-            <li className='m-3'>Category 3</li> <hr/>
-          </ul>
-      </div>
-      <div className='bg-pink-600 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
-          <ul >
-            <li className='m-3'>title  1</li> <hr/>
-            <li className='m-3'>title 2</li><hr/>
-            <li className='m-3'>title 3</li><hr/>
-          </ul>
-      </div>
-
-
+      <Category />
+      <Title />
       <div className='flex-grow overflow-auto '>
         <textarea className='w-full h-full p-4 focus:transition-none focus:outline-none' style={{
           fontFamily: 'Cursive', 
