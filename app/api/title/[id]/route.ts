@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import mongoose from 'mongoose';
+
 
 
 // Create a MySQL connection pool with your configuration
@@ -26,9 +27,9 @@ const Page = mongoose.models['page.coll'] || mongoose.model('page.coll', pageSch
 
 
 // Fetch data from database
-const fetchDataFromDatabase = async (): Promise<any[]> => {
+const fetchDataFromDatabase = async (category:string|null): Promise<any[]> => {
   await connectDB();
-  return Page.find();
+  return Page.find({categorie : category},{_id:0,title:1});
 };
 
 // Insert data into database
@@ -50,9 +51,11 @@ const deleteDataFromDatabase = async (id : string): Promise<void> => {
 };
 
 
-export const GET = async (req: Request, res: Response) => {
+export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
-    const data = await fetchDataFromDatabase();
+
+    const category = req.nextUrl.searchParams.get("category");
+    const data = await fetchDataFromDatabase(category);
     return NextResponse.json({ message:"ok", data}, { status: 200});
   } catch (err) {
     return NextResponse.json({ message: "Error", err},{status: 500,});
