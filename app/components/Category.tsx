@@ -1,5 +1,6 @@
-
+'use client'
 import React from 'react'
+import Title from './title'
 
 interface Page {
     _id: string;
@@ -9,20 +10,37 @@ interface Page {
     __v: number;
 }
 
+type category = string []
 
 const Pagecat = async () => {
+
+    const handleClick = () => {
+      
+    };
     const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/456');
+   //const res =  await fetch('http://localhost:3000/api/notepages/category/123');
     const data = await res.json();
-    const pages : Page[] = data.data;
+    //const pages : Page[] = data.data;
+    const categories : category = data.data;
   return (
+    <>
     <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
-            {pages.map(page => 
-                <li className='m-3' key={page._id}>{page.categorie}</li> 
+            {categories.map(category => 
+                <li key={category}
+                className='m-3'
+                onClick={(handleClick)} // Wrap the onClick handler with useClient
+                id={category}
+              >
+                {category}
+              </li>
             )
             } 
           </ul>
     </div>
+
+          <Title category ="category"/>
+          </>
     
   )
 }
