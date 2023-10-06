@@ -28,7 +28,7 @@ const Page = mongoose.models['page.coll'] || mongoose.model('page.coll', pageSch
 // Fetch data from database
 const fetchDataFromDatabase = async (): Promise<any[]> => {
   await connectDB();
-  return Page.distinct('categorie');
+  return Page.find();
 };
 
 // Insert data into database

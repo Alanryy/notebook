@@ -17,8 +17,8 @@ const Pagecat = async () => {
     const handleClick = () => {
       
     };
-    const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/category/123');
-   //const res =  await fetch('http://localhost:3000/api/notepages/category/123');
+    const res =  await fetch('https://notebook-navy.vercel.app/api/category/123');
+   //const res =  await fetch('http://localhost:3000/api/category/123');
     const data = await res.json();
     //const pages : Page[] = data.data;
     const categories : category = data.data;
