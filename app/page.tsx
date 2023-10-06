@@ -9,7 +9,7 @@ export default function Home() {
     </div>
     <div className='flex flex-row' style={{ height: 'calc(100vh - 64px)' }}>
       <Category />
-      <Title />
+      <Title category ="category"/>
       <div className='flex-grow overflow-auto '>
         <textarea className='w-full h-full p-4 focus:transition-none focus:outline-none' style={{
           fontFamily: 'Cursive', 

@@ -14,7 +14,6 @@ const Pagecat = async () => {
     const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/456');
     const data = await res.json();
     const pages : Page[] = data.data;
-    console.log(pages.map)
   return (
     <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
@@ -24,6 +23,7 @@ const Pagecat = async () => {
             } 
           </ul>
     </div>
+    
   )
 }
 

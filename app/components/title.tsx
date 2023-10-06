@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 interface Page {
@@ -9,12 +8,11 @@ interface Page {
     __v: number;
 }
 
-
-const Pagetitle = async () => {
-    const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/785');
+const Pagetitle = async ( props : any) => {
+    console.log("props" , props)
+    const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/123');
     const data = await res.json();
     const pages : Page[] = data.data;
-    console.log(pages.map)
   return (
     <div className='bg-pink-600 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
