@@ -20,13 +20,13 @@ const Pagecat = async () => {
     const res =  await fetch('https://notebook-navy.vercel.app/api/notepages/123');
    //const res =  await fetch('http://localhost:3000/api/category/123');
     const data = await res.json();
-    //const pages : Page[] = data.data;
-    const categories : category = data.data;
+    const pages : Page[] = data.data;
+   // const categories : category = data.data;
   return (
     <>
     <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
-            {categories.map(category => 
+            {/*categories.map(category => 
                 <li key={category}
                 className='m-3'
                 onClick={(handleClick)} // Wrap the onClick handler with useClient
@@ -35,7 +35,7 @@ const Pagecat = async () => {
                 {category}
               </li>
             )
-            } 
+            */} 
           </ul>
     </div>
 
