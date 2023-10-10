@@ -12,7 +12,7 @@ interface Page {
 const Pagetitle = async ( props : any) => {
     // console.log("props" , props)
     // const res =  await fetch('https://notebook-navy.vercel.app/api/title/123');
-  const res =  await fetch('http://localhost:3000/api/title/123');
+    const res =  await fetch('https://notebook-navy.vercel.app/api/title/123');
     const data = await res.json();
     const pages : Page[] = data.data;
   return (

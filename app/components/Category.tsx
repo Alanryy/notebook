@@ -18,7 +18,7 @@ const Pagecat =  () => {
   const [titles, setTitles] = useState([]);
   const [categorySelected, setCategorySelected] = useState("");
   useEffect(() => {
-    fetch('http://localhost:3000/api/category/123')
+    fetch('https://notebook-navy.vercel.app/api/category/123')
       .then((res) => res.json())
       .then((data) => {
         setcategories(data.data)
@@ -26,7 +26,7 @@ const Pagecat =  () => {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/title/123?category='+categorySelected)
+    fetch('https://notebook-navy.vercel.app/api/title/123?category='+categorySelected)
       .then((res) => res.json())
       .then((data) => {
         setTitles(data.data)
