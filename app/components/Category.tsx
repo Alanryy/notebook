@@ -24,6 +24,8 @@ const Pagecat = async () => {
     const categories : category = data.data;
   return (
     <>
+
+    
     <div className='bg-pink-700 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
           <ul>
             {categories.map(category => 
