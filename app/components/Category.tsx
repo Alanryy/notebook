@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import useIdeaGenerationStore from './idea-generation';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import Pagetitle from './Title'
+import Pagetitle from './Title1'
 import { Console } from 'console';
 
 // interface Page {
