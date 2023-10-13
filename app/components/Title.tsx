@@ -3,14 +3,18 @@ import React from 'react'
 import useIdeaGenerationStore from './idea-generation';
 
 
-const Pagetitle =  ( props : any) => {
 
+
+const Pagetitle =  ( props : any) => {
+ 
+const {category} = useIdeaGenerationStore()
 const {titles} = useIdeaGenerationStore()
 const {categories} = useIdeaGenerationStore()
 
 
+
   return (
-    <div className='bg-pink-600 p-6 text-white text-xl w-1/7 overflow-hidden min-w-[120px] '>      
+    <div className={'bg-pink-600 text-white text-xl w-1/7 overflow-hidden '+ (category ?  "p-6" : "w-0")} >      
           { categories &&
             titles.map((title:any,index) => 
               <li key={index}

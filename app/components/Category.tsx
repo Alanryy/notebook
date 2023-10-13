@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import useIdeaGenerationStore from './idea-generation';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import Pagetitle from './Title1'
+import Pagetitle from './Title'
 import { Console } from 'console';
 
 // interface Page {
@@ -59,10 +59,35 @@ const Pagecat  = () => {
         setCategory(e);
       }
     };
-    const handleClickAddCategory = () => {
+
+    const handleClickAddCategory = async () => {
       const input = document.querySelector('input[name="addButton"]') as HTMLInputElement;
-      
+      const category = input.value;
+      try {
+        const response = await fetch(`/api/category/123?category=${category}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Data inserted successfully:', data);
+          input.value = '';
+          input.hidden = true;
+          const addButton = document.getElementById("add") as HTMLElement;
+          addButton.hidden = true;
+          fetch('/api/category/123').then((res) => res.json()).then((data) => {setCategories(data.data)}).catch((error) => {console.error('Error fetching data:', error);});
+        } else {
+          console.error('Failed to insert data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error inserting data:', error);
+      }
     };
+    
+    
     const handleShowAddInput = () => {
       const input = document.querySelector('input[name="addButton"]') as HTMLInputElement;
       const addButton = document.getElementById("add") as HTMLElement;
@@ -86,7 +111,7 @@ const Pagecat  = () => {
               } 
               <li>
                 <input type="text" placeholder="Add category" className='text-gray-900' hidden name='addButton'/><br/>
-                <button onClick={()=> handleClickAddCategory()}  id='add' hidden>Add </button>
+                <button onClick={handleClickAddCategory} id='add' hidden>Add </button>
               </li>
             </ul>
           <AiOutlinePlusCircle className="absolute bottom-3 left-[45%] cursor-pointer hover:-scale-110 " size={24}

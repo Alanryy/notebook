@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+
 import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from "next/server";
 
 
 // Create a MySQL connection pool with your configuration
@@ -59,12 +60,12 @@ export const GET = async (req: Request, res: Response) => {
   }
 };
 
-export const POST = async (req: Request, res: Response) => {
-  const   { title , categorie , content} = await req.json();
+export const POST = async (req: NextRequest, res: NextResponse)  => {
+  const category = req.nextUrl.searchParams.get("category");
   const data ={
-    title:title,
-    categorie:categorie,
-    content:content,
+    title:"",
+    categorie:category,
+    content:"",
   }
   try {
     const post =  await insertDataIntoDatabase(data);

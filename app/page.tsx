@@ -1,6 +1,6 @@
 import React from 'react'
 import Category from './components/Category'
-import Title from './components/Title1'
+import Title from './components/Title'
 export default function Home() {
   return (
     <div className='h-screen flex flex-col'>
