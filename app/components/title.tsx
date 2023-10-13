@@ -1,28 +1,25 @@
+'use client'
 import React from 'react'
+import useIdeaGenerationStore from './idea-generation';
 
 
-interface Page {
-    _id: string;
-    title: string;
-    categorie: string;
-    content: string;
-    __v: number;
-}
+const Pagetitle =  ( props : any) => {
 
-const Pagetitle = async ( props : any) => {
-    // console.log("props" , props)
-    // const res =  await fetch('https://notebook-navy.vercel.app/api/title/123');
-   const res =  await fetch('http://localhost:3000/api/title/123');
-    const data = await res.json();
-    const pages : Page[] = data.data;
+const {titles} = useIdeaGenerationStore()
+const {categories} = useIdeaGenerationStore()
+
+
   return (
-    <div className='bg-pink-600 p-6 text-white text-xl text-center w-1/7 overflow-hidden'>
-          <ul>
-            {pages.map(page => 
-                <li className='m-3' key={page._id}>{page.title}</li> 
-            )
-            } 
-          </ul>
+    <div className='bg-pink-600 p-6 text-white text-xl w-1/7 overflow-hidden min-w-[120px] '>      
+          { categories &&
+            titles.map((title:any,index) => 
+              <li key={index}
+              className='m-3 cursor-pointer hover:text-blue-300'
+            >
+              {title.title}
+            </li>
+          )
+          }
     </div>
   )
 }
