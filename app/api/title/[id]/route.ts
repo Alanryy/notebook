@@ -27,9 +27,9 @@ const Page = mongoose.models['page.coll'] || mongoose.model('page.coll', pageSch
 
 
 // Fetch data from database
-const fetchDataFromDatabase = async (category:string|null): Promise<any[]> => {
+const fetchDataFromDatabase = async (categorie:string|null): Promise<any[]> => {
   await connectDB();
-  return Page.find({categorie : category},{_id:0,title:1});
+  return Page.find({categorie : categorie},{_id:0,title:1});
 };
 
 // Insert data into database
@@ -61,12 +61,13 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     return NextResponse.json({ message: "Error", err},{status: 500,});
   }
 };
-
-export const POST = async (req: Request, res: Response) => {
-  const   { title , categorie , content} = await req.json();
+export const POST  = async (req: NextRequest, res: NextResponse) => {
+  const title = req.nextUrl.searchParams.get("title");
+  const category = req.nextUrl.searchParams.get("category");
+  const content = req.nextUrl.searchParams.get("content");
   const data ={
     title:title,
-    categorie:categorie,
+    categorie:category,
     content:content,
   }
   try {

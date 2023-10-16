@@ -15,3 +15,16 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  height: 90%;
+}
+.editor-class {
+  background-color:lightgray;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}

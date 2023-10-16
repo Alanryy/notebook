@@ -5,17 +5,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Pagetitle from './Title'
 import { Console } from 'console';
 
-// interface Page {
-//     _id: string;
-//     title: string;
-//     categorie: string;
-//     content: string;
-//     __v: number;
-// }
 
-
-
-// type category = string []
 
 const Pagecat  = () => {
   const {title} = useIdeaGenerationStore()
@@ -54,7 +44,6 @@ const Pagecat  = () => {
 
 
     const handleClickCategory = (e:string) => {
-      console.log(e)
       if (e !== category){
         setCategory(e);
       }
@@ -73,7 +62,6 @@ const Pagecat  = () => {
     
         if (response.ok) {
           const data = await response.json();
-          console.log('Data inserted successfully:', data);
           input.value = '';
           input.hidden = true;
           const addButton = document.getElementById("add") as HTMLElement;
@@ -98,7 +86,7 @@ const Pagecat  = () => {
 
   return (
     <>
-      <div className='bg-pink-700 p-6 text-white text-xl w-1/7 overflow-hidden relative'>
+      <div className='bg-pink-700 p-2 text-white text-xl  relative '>
             <ul>
               {categories.map(category => 
                   <li key={category}

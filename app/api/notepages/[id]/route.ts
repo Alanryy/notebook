@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import mongoose from 'mongoose';
-
 
 // Create a MySQL connection pool with your configuration
 
@@ -18,7 +17,7 @@ const connectDB = async () => {
 const pageSchema = new mongoose.Schema({
   title: String,
   categorie: String,
-  content: String,
+  content: String
 });
 
 // Define your model
@@ -26,9 +25,9 @@ const Page = mongoose.models['page.coll'] || mongoose.model('page.coll', pageSch
 
 
 // Fetch data from database
-const fetchDataFromDatabase = async (): Promise<any[]> => {
+const fetchDataFromDatabase = async (title:string|null): Promise<any[]> => {
   await connectDB();
-  return Page.find();
+  return Page.find({title : title},{_id:0,content:1});
 };
 
 // Insert data into database
@@ -44,15 +43,17 @@ const updateDataInDatabase = async (id: string, data: any): Promise<void> => {
 };
 
 // Delete data from database
-const deleteDataFromDatabase = async (id : string): Promise<void> => {
+const deleteDataFromDatabase = async (category: string, title: string): Promise<void> => {
   await connectDB();
-  await Page.findByIdAndDelete(id);
+  await Page.deleteMany({ category: category, title: title });
 };
 
 
-export const GET = async (req: Request, res: Response) => {
+export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
-    const data = await fetchDataFromDatabase();
+
+    const title = req.nextUrl.searchParams.get("title");
+    const data = await fetchDataFromDatabase(title);
     return NextResponse.json({ message:"ok", data}, { status: 200});
   } catch (err) {
     return NextResponse.json({ message: "Error", err},{status: 500,});
@@ -60,20 +61,24 @@ export const GET = async (req: Request, res: Response) => {
 };
 
 export const POST = async (req: Request, res: Response) => {
-  const   { title , categorie , content} = await req.json();
-  const data ={
-    title:title,
-    categorie:categorie,
-    content:content,
-  }
-  try {
-    const post =  await insertDataIntoDatabase(data);
-    return NextResponse.json({ message:"data inserted", post}, { status: 200});
-  } catch (err) {
-    return NextResponse.json({ message: "Error", err},{status: 500,});
-  }
+  const { title, categorie, content } = await req.json();
+  const data = {
+    title,
+    categorie,
+    content  
+  };
 
+  try {
+    const deleteResult = await deleteDataFromDatabase(categorie, title);
+    const insertResult = await insertDataIntoDatabase(data);
+    return NextResponse.json({ message: "Data inserted successfully", insertResult }, { status: 200 });
+  } catch (err) {
+    console.error("Server error:", err);
+    return NextResponse.json({ message: "Server error occurred" }, { status: 500 });
+  }
 };
+
+
 
 export const PUT = async (req: Request, res: Response) => {
   const   { id ,title , categorie , content} = await req.json();
@@ -90,7 +95,7 @@ export const PUT = async (req: Request, res: Response) => {
   }
 
 };
-
+/*
 export const DELETE = async (req: Request, res: Response) => {
   const  id  =  req.url.split("notepages/")[1];
   try {
@@ -100,4 +105,4 @@ export const DELETE = async (req: Request, res: Response) => {
     return NextResponse.json({ message: "Error", id},{status: 500,});
   }
 
-};
+};*/
