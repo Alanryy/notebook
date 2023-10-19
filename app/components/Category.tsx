@@ -52,6 +52,12 @@ const Pagecat  = () => {
     const handleClickAddCategory = async () => {
       const input = document.querySelector('input[name="addButton"]') as HTMLInputElement;
       const category = input.value;
+      const isCategoryExists = categories.includes(category);
+      if (isCategoryExists) {
+        alert('Category already exists');
+        return
+      }
+
       try {
         const response = await fetch(`/api/category/123?category=${category}`, {
           method: 'POST',

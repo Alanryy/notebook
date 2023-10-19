@@ -88,7 +88,7 @@ function PageComp() {
           },
         }}
       />
-       <button id="show" onClick={handleSave} className="absolute top-5 right-10 px-4 py-1 bg-pink-700 text-white rounded z-10" hidden>show</button>
+       <button id="show" onClick={handleSave} className="absolute top-5 right-10 px-4 py-1 bg-pink-700 text-white rounded z-10" hidden>save</button>
     </div>
   );
 }

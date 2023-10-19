@@ -68,6 +68,7 @@ export const POST = async (req: NextRequest, res: NextResponse)  => {
     content:"",
   }
   try {
+    
     const post =  await insertDataIntoDatabase(data);
     return NextResponse.json({ message:"data inserted", post}, { status: 200});
   } catch (err) {

@@ -45,9 +45,9 @@ const updateDataInDatabase = async (id: string, data: any): Promise<void> => {
 };
 
 // Delete data from database
-const deleteDataFromDatabase = async (id : string): Promise<void> => {
+const deleteDataFromDatabase = async (categorie: string): Promise<void> => {
   await connectDB();
-  await Page.findByIdAndDelete(id);
+  await Page.deleteOne({ categorie: categorie, title: "" });
 };
 
 
@@ -66,11 +66,12 @@ export const POST  = async (req: NextRequest, res: NextResponse) => {
   const category = req.nextUrl.searchParams.get("category");
   const content = req.nextUrl.searchParams.get("content");
   const data ={
-    title:title,
-    categorie:category,
-    content:content,
+    title: title || '',
+    categorie: category || '',
+    content: content || '',
   }
   try {
+    const deleteResult = await deleteDataFromDatabase(category || '');	
     const post =  await insertDataIntoDatabase(data);
     return NextResponse.json({ message:"data inserted", post}, { status: 200});
   } catch (err) {

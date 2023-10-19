@@ -37,7 +37,14 @@ const handleClickTitle = (e:string) => {
   const contentState = convertFromRaw(rawContent);
   return EditorState.createWithContent(contentState);
 }
-const initialState = editorStateFromRaw( JSON.parse(data.data[0].content));
+    var initialState;
+    if (data.data[0].content && data.data[0].content !== "") {
+      const rawContent = JSON.parse(data.data[0].content);
+      initialState = EditorState.createWithContent(convertFromRaw(rawContent));
+    } else {
+      initialState = EditorState.createEmpty();
+    }
+
 setEditorState(initialState);
     console.log(data.data[0].content);
   })
@@ -50,6 +57,13 @@ setEditorState(initialState);
 const Addtitle = async () => {
   const input = document.querySelector('input[name="addButtontitle"]') as HTMLInputElement;
   const title = input.value;
+  // Check if title already exists in titles
+  const titleExists = titles.some((t: any) => t.title === title);
+  if (titleExists) {  
+    alert('Title already exists');
+    return;
+  }
+
   try {
     const response = await fetch(`/api/title/123?category=${category}&title=${title}&content=`, {
       method: 'POST',

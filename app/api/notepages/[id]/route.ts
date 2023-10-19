@@ -43,9 +43,9 @@ const updateDataInDatabase = async (id: string, data: any): Promise<void> => {
 };
 
 // Delete data from database
-const deleteDataFromDatabase = async (category: string, title: string): Promise<void> => {
+const deleteDataFromDatabase = async (categorie: string, title: string): Promise<void> => {
   await connectDB();
-  await Page.deleteMany({ category: category, title: title });
+  await Page.deleteMany({ categorie: categorie, title: title });
 };
 
 
@@ -95,8 +95,7 @@ export const PUT = async (req: Request, res: Response) => {
   }
 
 };
-/*
-export const DELETE = async (req: Request, res: Response) => {
+/*export const DELETE = async (req: Request, res: Response) => {
   const  id  =  req.url.split("notepages/")[1];
   try {
     const del =  await deleteDataFromDatabase(id);
